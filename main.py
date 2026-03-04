@@ -282,3 +282,74 @@ def main() -> int:
     sub.add_parser("reference", help="Engine reference").set_defaults(func=cmd_reference)
     sub.add_parser("tips", help="Usage tips").set_defaults(func=cmd_tips)
     sub.add_parser("districts", help="Amsterdam districts").set_defaults(func=cmd_districts)
+    sub.add_parser("venue-names", help="Venue name suggestions").set_defaults(func=cmd_venue_names)
+    sub.add_parser("errors", help="Error codes").set_defaults(func=cmd_errors)
+    sub.add_parser("guide", help="Amsterdam guide intro and districts").set_defaults(func=cmd_guide)
+    sub.add_parser("venue-types", help="Venue type descriptions").set_defaults(func=cmd_venue_types)
+    sub.add_parser("java-api", help="Full Java engine API reference").set_defaults(func=cmd_java_api)
+    sub.add_parser("workflow", help="Workflow steps").set_defaults(func=cmd_workflow)
+    sub.add_parser("usage", help="Usage examples").set_defaults(func=cmd_usage)
+    sub.add_parser("addresses", help="Engine addresses").set_defaults(func=cmd_addresses)
+    sub.add_parser("quickstart", help="Quick start").set_defaults(func=cmd_quickstart)
+    sub.add_parser("extended-venue-names", help="Extended venue name list").set_defaults(func=cmd_extended_venue_names)
+    sub.add_parser("amsterdam-tips", help="Amsterdam tips list").set_defaults(func=cmd_amsterdam_tips)
+    sub.add_parser("commands", help="List all commands").set_defaults(func=cmd_commands)
+    sub.add_parser("long-ref", help="Long reference").set_defaults(func=cmd_long_ref)
+    sub.add_parser("padding", help="Padding reference").set_defaults(func=cmd_padding)
+    sub.add_parser("paragraphs", help="Paragraph reference").set_defaults(func=cmd_paragraphs)
+
+    v = sub.add_parser("venues", help="Venue commands")
+    v_sub = v.add_subparsers(dest="subcommand")
+    v_sub.add_parser("list", help="List venues").set_defaults(func=cmd_venues_list)
+    v_sub.add_parser("add", help="Add venue (needs Java engine)").set_defaults(func=cmd_venues_list)
+
+    s = sub.add_parser("slots", help="Slot commands")
+    s_sub = s.add_subparsers(dest="subcommand")
+    s_sub.add_parser("list", help="List slots").set_defaults(func=cmd_slots_list)
+    s_sub.add_parser("add", help="Add slot").set_defaults(func=cmd_slots_list)
+
+    sub.add_parser("book", help="Book tour").set_defaults(func=lambda a: (print("Use Java engine bookTour(guest, slotId, amountWei)"), 0)[1])
+    sub.add_parser("message", help="Send message").set_defaults(func=lambda a: (print("Use Java engine sendMessage(from, to, contentHash)"), 0)[1])
+
+    args = p.parse_args()
+    if not args.command:
+        p.print_help()
+        return 0
+    if args.command == "venues" or args.command == "slots":
+        if not getattr(args, "subcommand", None):
+            p.print_help()
+            return 0
+    f = getattr(args, "func", None)
+    if f is None:
+        p.print_help()
+        return 0
+    return f(args)
+
+
+# -----------------------------------------------------------------------------
+# WORKFLOW & USAGE (extended)
+# -----------------------------------------------------------------------------
+
+WORKFLOW_TEXT = """
+HookUp + AmstaMatchaXXX workflow:
+
+1. Start Java engine: new AmstaMatchaXXX(). Addresses are set in constructor.
+2. Curator adds venues: addVenue(curatorAddr, venueId, name, CANAL_HOUSE|LOUNGE|PRIVATE_STUDIO|EXPERIENCE_ROOM).
+3. Curator lists slots: listSlot(curatorAddr, slotId, venueId, startEpoch, endEpoch).
+4. Guest books: bookTour(guestAddr, slotId, amountWei). Fee is deducted per feeBps.
+5. Guide or curator completes: completeBooking(sender, bookingId).
+6. Optional: sendMessage(fromAddr, toAddr, contentHash) — creates thread if needed.
+7. Curator can setFeeBps, setMessagingEnabled, setNamespaceFrozen.
+"""
+
+def cmd_workflow(args: argparse.Namespace) -> int:
+    print(WORKFLOW_TEXT)
+    return 0
+
+
+USAGE_EXAMPLES = """
+Usage examples:
+
+  python HookUp_app.py config
+  python HookUp_app.py version
+  python HookUp_app.py constants
