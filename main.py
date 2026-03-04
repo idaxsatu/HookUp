@@ -353,3 +353,74 @@ Usage examples:
   python HookUp_app.py config
   python HookUp_app.py version
   python HookUp_app.py constants
+  python HookUp_app.py reference
+  python HookUp_app.py tips
+  python HookUp_app.py districts
+  python HookUp_app.py venue-names
+  python HookUp_app.py errors
+  python HookUp_app.py guide
+  python HookUp_app.py venue-types
+  python HookUp_app.py java-api
+  python HookUp_app.py workflow
+  python HookUp_app.py usage
+  python HookUp_app.py addresses
+  python HookUp_app.py quickstart
+"""
+
+def cmd_usage(args: argparse.Namespace) -> int:
+    print(USAGE_EXAMPLES)
+    return 0
+
+
+def cmd_addresses(args: argparse.Namespace) -> int:
+    print("Curator:", AMM_CURATOR)
+    print("Treasury:", AMM_TREASURY)
+    print("MessageRelay:", AMM_MESSAGE_RELAY)
+    print("FeeCollector:", AMM_FEE_COLLECTOR)
+    print("BackupCurator:", AMM_BACKUP_CURATOR)
+    print("Zero:", AMM_ZERO)
+    return 0
+
+
+def cmd_quickstart(args: argparse.Namespace) -> int:
+    print("1. Use AmstaMatchaXXX.java (single file). 2. Instantiate: new AmstaMatchaXXX().")
+    print("3. Curator adds venues and slots. 4. Guests book tours. 5. Optional: sendMessage.")
+    return 0
+
+
+# -----------------------------------------------------------------------------
+# EXTENDED VENUE NAMES (Amsterdam theme — for app size)
+# -----------------------------------------------------------------------------
+
+EXTENDED_VENUE_NAMES = [
+    "Herengracht View", "Keizersgracht Suite", "Prinsengracht Room",
+    "Jordaan Hideaway", "De Pijp Lounge", "Nine Streets Studio",
+    "Canal House One", "Canal House Two", "Private Lounge A", "Private Lounge B",
+    "Experience Room North", "Experience Room South", "Central Canal Suite",
+    "West Side Studio", "East Side Lounge", "Noord Over IJ", "Zuid Premium",
+    "Grachtengordel Classic", "Singel Corner", "Brouwersgracht View",
+    "Leliegracht Suite", "Runstraat Room", "Berensstraat Lounge", "Wolvenstraat Studio",
+    "Hartenstraat Venue", "Huidenstraat Room", "Reestraat Lounge",
+    "Amstel View", "Magere Brug Suite", "Blauwbrug Room", "Skinny Bridge Lounge",
+    "Rembrandtplein Studio", "Leidseplein Venue", "Dam Square Room",
+    "Oudezijds Achterburgwal Venue", "Oudezijds Voorburgwal Room",
+    "Warmoesstraat Lounge", "Nieuwezijds Studio", "Spuistraat Venue",
+    "Haarlemmerstraat Room", "Haarlemmerdijk Lounge", "Elandsgracht Studio",
+    "Lindengracht Venue", "Boomstraat Room", "Albert Cuyp Studio",
+    "Ferdinand Bolstraat Venue", "Van Woustraat Room", "Sarphatipark Lounge",
+    "Marie Heinekenplein Studio", "Museumplein Venue", "Vondelpark Room",
+    "Overtoom Lounge", "Kinkerstraat Venue", "Ten Katestraat Room",
+    "IJburg Room", "Java-eiland Lounge", "KNSM-eiland Studio",
+    "NDSM Wharf Studio", "Noordelijke IJoever Venue", "Buiksloterweg Room",
+]
+
+def cmd_extended_venue_names(args: argparse.Namespace) -> int:
+    for n in EXTENDED_VENUE_NAMES:
+        print(n)
+    return 0
+
+
+# -----------------------------------------------------------------------------
+# AMSTERDAM TIPS (tour guide style)
+# -----------------------------------------------------------------------------
+
