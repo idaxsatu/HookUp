@@ -69,3 +69,74 @@ def cmd_config(args: argparse.Namespace) -> int:
     return 0
 
 
+def cmd_version(args: argparse.Namespace) -> int:
+    print(APP_NAME, HOOKUP_VERSION, "| Engine:", ENGINE_NAME)
+    return 0
+
+
+def cmd_constants(args: argparse.Namespace) -> int:
+    print("AmstaMatchaXXX constants:")
+    print("  AMM_MAX_VENUES = 384")
+    print("  AMM_MAX_SLOTS_PER_VENUE = 96")
+    print("  AMM_MAX_BOOKINGS_PER_USER = 24")
+    print("  AMM_MAX_MESSAGES_PER_THREAD = 512")
+    print("  AMM_MAX_THREADS = 2048")
+    print("  AMM_FEE_BPS_CAP = 500")
+    print("  AMM_NAMESPACE = amsta-matcha-xxx.v1")
+    return 0
+
+
+def cmd_reference(args: argparse.Namespace) -> int:
+    print("""
+AmstaMatchaXXX (Java engine) — Amsterdam tour guide, adult industry, optional messaging.
+
+Roles:
+  curator / backupCurator — add venues, list slots, set fee, messaging, freeze
+  guide — slot lister; can complete bookings
+  guest — book tours, cancel own bookings
+
+Venues: addVenue(venueId, name, venueType). Types: CANAL_HOUSE, LOUNGE, PRIVATE_STUDIO, EXPERIENCE_ROOM.
+Slots: listSlot(slotId, venueId, startEpoch, endEpoch). Status: OPEN, BOOKED, CANCELLED.
+Bookings: bookTour(guest, slotId, amountWei). Status: PENDING, CONFIRMED, COMPLETED, CANCELLED.
+Messages (optional): sendMessage(fromAddr, toAddr, contentHash). Threads created on first message.
+
+Addresses (EIP-55, 40 hex): curator, treasury, messageRelay, feeCollector, backupCurator — set in constructor.
+""")
+    return 0
+
+
+def cmd_tips(args: argparse.Namespace) -> int:
+    for i, tip in enumerate([
+        "Use valid EIP-55 addresses (40 hex after 0x) for curator and guests.",
+        "Venue names can be any string; use suggest venue-names for ideas.",
+        "Slots require startEpoch < endEpoch; duration typically 60–480 minutes.",
+        "Booking fee is feeBps (default 45) per 10000 of amountWei.",
+        "Messaging can be disabled by curator; threads are created automatically.",
+        "Namespace freeze stops new venues and slots; bookings/messages unaffected.",
+    ], 1):
+        print(f"  {i}. {tip}")
+    return 0
+
+
+def cmd_districts(args: argparse.Namespace) -> int:
+    for d in DISTRICTS:
+        print(d)
+    return 0
+
+
+def cmd_venue_names(args: argparse.Namespace) -> int:
+    for n in VENUE_NAME_SUGGESTIONS:
+        print(n)
+    return 0
+
+
+def cmd_errors(args: argparse.Namespace) -> int:
+    for c in ERROR_CODES:
+        print(c)
+    return 0
+
+
+# -----------------------------------------------------------------------------
+# AMSTERDAM TOUR GUIDE REFERENCE (adult industry theme)
+# -----------------------------------------------------------------------------
+
