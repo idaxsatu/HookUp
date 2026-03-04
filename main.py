@@ -211,3 +211,74 @@ Slots:
   listSlotsSortedByStart(), getSlotsPaginated(offset, limit)
   listAllSlotIds()
   isSlotAvailable(slotId), getSlotDurationSeconds(slotId)
+  isSlotInPast(slotId), isSlotOngoing(slotId)
+  getSlotStatusCounts()
+
+Bookings:
+  bookTour(guest, slotId, amountWei) -> bookingId
+  getBooking(bookingId), getBookingOrThrow(bookingId), bookingExists(bookingId)
+  getBookingIdsByGuest(guest), cancelBooking(sender, bookingId)
+  completeBooking(sender, bookingId)
+  getBookingsByGuide(guide), getBookingsByStatus(status)
+  getActiveBookingsForGuest(guest), getCompletedBookingsForGuest(guest), getCancelledBookingsForGuest(guest)
+  findBookingBySlot(slotId), hasBookingForSlot(slotId)
+  getTotalBookedAmountByGuest(guest)
+  getBookingsPaginated(offset, limit), listBookingsSortedByCreated()
+  getBookingCount(), getConfirmedBookingCount(), getCompletedBookingCount()
+  getBookingStatusCounts()
+
+Messaging:
+  sendMessage(fromAddr, toAddr, contentHash) -> messageId
+  getMessage(messageId), getMessageOrThrow(messageId), messageExists(messageId)
+  getMessageIdsByThread(threadId), getMessagesInThread(threadId)
+  getThreadId(addr1, addr2), getThreadIdsForParticipant(addr)
+  markMessageDelivered(messageId), markMessageRead(messageId)
+  getUnreadMessagesFor(toAddr), getUnreadCountFor(toAddr)
+  getMessageCount(), getThreadCount(), getMessageCountInThread(threadId)
+  hasThread(addr1, addr2), getParticipantPairsForThread(threadId)
+
+Config (curator only):
+  setFeeBps(sender, feeBps), setMessagingEnabled(sender, enabled), setNamespaceFrozen(sender, frozen)
+  getConfig(), getCurrentFeeBps(), isMessagingEnabled(), isNamespaceFrozen()
+
+Immutables / addresses:
+  getCurator(), getTreasury(), getMessageRelay(), getFeeCollector(), getBackupCurator()
+  getCuratorAddress(), getTreasuryAddress(), getMessageRelayAddress(), getFeeCollectorAddress(), getBackupCuratorAddress()
+  getCuratorHex(), getTreasuryHex(), getMessageRelayHex(), getFeeCollectorHex(), getBackupCuratorHex()
+  getImmutablesList(), getZeroAddress(), isCurator(addr)
+
+Stats / summary:
+  getTotalFeesCollected(), getFeesCollected(), getEngineSummary()
+  getTotalEventCount(), getVenueTypeCounts(), getSlotStatusCounts(), getBookingStatusCounts()
+  remainingVenueSlots(), remainingSlotSlots(venueId), remainingBookingSlots(guest)
+  canAddVenue(), canListSlot(venueId), canBook(guest), canSendMessage()
+
+Events: getVenueAddedEvents(), getSlotListedEvents(), getTourBookedEvents(), getMessageSentEvents()
+"""
+
+def cmd_java_api(args: argparse.Namespace) -> int:
+    print(JAVA_API_REFERENCE)
+    return 0
+
+
+def cmd_venues_list(args: argparse.Namespace) -> int:
+    print("(In-process: use Java AmstaMatchaXXX instance; listVenues())")
+    print("Venue types:", ", ".join(VENUE_TYPES))
+    return 0
+
+
+def cmd_slots_list(args: argparse.Namespace) -> int:
+    print("(In-process: use Java engine getSlotIdsByVenue(venueId))")
+    return 0
+
+
+def main() -> int:
+    p = argparse.ArgumentParser(description=f"{APP_NAME} — CLI for {ENGINE_NAME}")
+    sub = p.add_subparsers(dest="command", help="Commands")
+
+    sub.add_parser("config", help="Show config").set_defaults(func=cmd_config)
+    sub.add_parser("version", help="App version").set_defaults(func=cmd_version)
+    sub.add_parser("constants", help="Engine constants").set_defaults(func=cmd_constants)
+    sub.add_parser("reference", help="Engine reference").set_defaults(func=cmd_reference)
+    sub.add_parser("tips", help="Usage tips").set_defaults(func=cmd_tips)
+    sub.add_parser("districts", help="Amsterdam districts").set_defaults(func=cmd_districts)
