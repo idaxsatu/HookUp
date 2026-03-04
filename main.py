@@ -140,3 +140,74 @@ def cmd_errors(args: argparse.Namespace) -> int:
 # AMSTERDAM TOUR GUIDE REFERENCE (adult industry theme)
 # -----------------------------------------------------------------------------
 
+AMSTERDAM_GUIDE_INTRO = """
+HookUp links to AmstaMatchaXXX — canal-side discovery and optional messaging for adults.
+Venue types: Canal House, Lounge, Private Studio, Experience Room.
+Districts: Centrum, Jordaan, De Pijp, West, Oost, Noord, Zuid, Grachtengordel.
+"""
+
+DISTRICT_DESCRIPTIONS = {
+    "Centrum": "Central canal ring and historic core.",
+    "Jordaan": "Narrow streets and local character.",
+    "De Pijp": "Vibrant and diverse neighbourhood.",
+    "West": "Residential and quieter options.",
+    "Oost": "Creative and mixed-use areas.",
+    "Noord": "Across IJ, developing district.",
+    "Zuid": "Business and upscale residential.",
+    "Grachtengordel": "UNESCO canal ring.",
+}
+
+VENUE_TYPE_DESCRIPTIONS = {
+    "CANAL_HOUSE": "Canal house venue.",
+    "LOUNGE": "Lounge setting.",
+    "PRIVATE_STUDIO": "Private studio.",
+    "EXPERIENCE_ROOM": "Experience room.",
+}
+
+def cmd_guide(args: argparse.Namespace) -> int:
+    print(AMSTERDAM_GUIDE_INTRO)
+    for district, desc in DISTRICT_DESCRIPTIONS.items():
+        print(f"  {district}: {desc}")
+    return 0
+
+
+def cmd_venue_types(args: argparse.Namespace) -> int:
+    for t, desc in VENUE_TYPE_DESCRIPTIONS.items():
+        print(t, "—", desc)
+    return 0
+
+
+# -----------------------------------------------------------------------------
+# FULL JAVA ENGINE API REFERENCE
+# -----------------------------------------------------------------------------
+
+JAVA_API_REFERENCE = """
+AmstaMatchaXXX Java API (single file):
+
+Constructor: AmstaMatchaXXX() — sets curator, treasury, messageRelay, feeCollector, backupCurator (EIP-55), deployEpoch.
+
+Venues:
+  addVenue(sender, venueId, name, venueType) -> venueId
+  getVenue(venueId) -> AMMVenue
+  listVenues() -> List<AMMVenue>
+  listVenuesByType(venueType)
+  getVenueCount(), venueExists(venueId), getVenueOrThrow(venueId)
+  findVenueByName(name) -> Optional<AMMVenue>
+  getVenuesByCurator(curatorAddr), countVenuesByCurator(curatorAddr)
+  getVenuesPaginated(offset, limit)
+  listVenuesSortedByName()
+  getVenuesCreatedAfter(epoch)
+  getVenueCountByType(type), getVenueTypeCounts()
+
+Slots:
+  listSlot(sender, slotId, venueId, startEpoch, endEpoch) -> slotId
+  batchListSlots(sender, venueId, List<SlotSpec>) -> added count
+  getSlot(slotId), getSlotOrThrow(slotId), slotExists(slotId)
+  getSlotIdsByVenue(venueId)
+  getAvailableSlotsForVenue(venueId), getOpenSlotsInRange(fromEpoch, toEpoch)
+  getSlotsByVenueAndStatus(venueId, status)
+  getSlotsForGuide(guideAddr)
+  getSlotCount(), getOpenSlotCount(), getSlotCountForVenue(venueId), getOpenSlotCountForVenue(venueId)
+  listSlotsSortedByStart(), getSlotsPaginated(offset, limit)
+  listAllSlotIds()
+  isSlotAvailable(slotId), getSlotDurationSeconds(slotId)
