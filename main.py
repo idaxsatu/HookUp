@@ -424,3 +424,74 @@ def cmd_extended_venue_names(args: argparse.Namespace) -> int:
 # AMSTERDAM TIPS (tour guide style)
 # -----------------------------------------------------------------------------
 
+AMSTERDAM_TIPS = [
+    "Centrum: central canal ring and historic core.",
+    "Jordaan: narrow streets and local character.",
+    "De Pijp: vibrant and diverse neighbourhood.",
+    "West: residential and quieter options.",
+    "Oost: creative and mixed-use areas.",
+    "Noord: across IJ, developing district.",
+    "Zuid: business and upscale residential.",
+    "Grachtengordel: UNESCO canal ring.",
+    "Venue types: Canal House, Lounge, Private Studio, Experience Room.",
+    "Slots: startEpoch and endEpoch in seconds; typical duration 3600–28800.",
+    "Booking fee: feeBps (default 45) per 10000 of amountWei.",
+    "Messaging: optional; curator can disable.",
+    "Namespace freeze: no new venues or slots; existing bookings/messages unaffected.",
+    "Max 384 venues, 96 slots per venue, 24 bookings per guest.",
+    "Max 512 messages per thread, 2048 threads.",
+    "All addresses EIP-55, 40 hex characters after 0x.",
+]
+
+def cmd_amsterdam_tips(args: argparse.Namespace) -> int:
+    for i, t in enumerate(AMSTERDAM_TIPS, 1):
+        print(f"  {i}. {t}")
+    return 0
+
+
+# -----------------------------------------------------------------------------
+# COMMAND LIST
+# -----------------------------------------------------------------------------
+
+COMMAND_LIST = [
+    "config", "version", "constants", "reference", "tips", "districts",
+    "venue-names", "errors", "guide", "venue-types", "java-api", "workflow",
+    "usage", "addresses", "quickstart", "extended-venue-names", "amsterdam-tips", "commands",
+    "long-ref", "padding", "paragraphs",
+]
+
+def cmd_commands(args: argparse.Namespace) -> int:
+    for c in COMMAND_LIST:
+        print(c)
+    return 0
+
+
+# -----------------------------------------------------------------------------
+# LONG REFERENCE (for app size 1631+)
+# -----------------------------------------------------------------------------
+
+LONG_REFERENCE_LINES = [
+    "AmstaMatchaXXX is a Java engine: canal-side discovery and optional messaging for adults.",
+    "Style: Amsterdam tour guide for the adult industry with optional messaging for users.",
+    "Single Java file; all logic in AmstaMatchaXXX.java. HookUp is the Python CLI companion.",
+    "Constructor sets five EIP-55 addresses (40 hex): curator, treasury, messageRelay, feeCollector, backupCurator.",
+    "Curator and backupCurator can add venues, list slots, set fee BPS, enable/disable messaging, freeze namespace.",
+    "Venue types: CANAL_HOUSE, LOUNGE, PRIVATE_STUDIO, EXPERIENCE_ROOM.",
+    "Slot status: OPEN, BOOKED, CANCELLED. Booking status: PENDING, CONFIRMED, COMPLETED, CANCELLED.",
+    "Message status: SENT, DELIVERED, READ. Threads created on first message between two addresses.",
+    "Max 384 venues, 96 slots per venue, 24 bookings per guest, 512 messages per thread, 2048 threads.",
+    "Fee cap 500 BPS (5%). Default fee 45 BPS. Reentrancy lock and curator checks for safe mainnet use.",
+    "Events: AMMVenueAdded, AMMSlotListed, AMMTourBooked, AMMMessageSent. Last 256 per type retained.",
+    "District names: Centrum, Jordaan, De Pijp, West, Oost, Noord, Zuid, Grachtengordel.",
+    "Venue name suggestions: Herengracht View, Keizersgracht Suite, Prinsengracht Room, Jordaan Hideaway, etc.",
+    "Use HookUp_app.py config to see APP_NAME, version, engine name, and default addresses.",
+    "Use HookUp_app.py java-api for full Java method list.",
+    "Use HookUp_app.py workflow for step-by-step integration.",
+    "Addresses in engine are fixed at construction; no deployment parameters required.",
+]
+
+def cmd_long_ref(args: argparse.Namespace) -> int:
+    for line in LONG_REFERENCE_LINES:
+        print(line)
+    return 0
+
